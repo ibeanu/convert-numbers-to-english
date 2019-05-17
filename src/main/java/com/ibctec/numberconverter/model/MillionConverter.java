@@ -37,7 +37,6 @@ public class MillionConverter {
     }
     private StringBuilder doTenConversion(int one, int ten, int hundred, StringBuilder builder, String s) {
         builder.append(s);
-     //   ConverterUtil.checkValues(builder, hundred, ten, one);
         builder = new HundredsConverter().convert(hundred, ten, one, builder);
         return builder;
     }

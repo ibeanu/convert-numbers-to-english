@@ -1,7 +1,5 @@
 package com.ibctec.numberconverter;
 
-
-
 import com.ibctec.numberconverter.model.Converter;
 import org.junit.Test;
 import org.junit.runner.RunWith;

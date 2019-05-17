@@ -7,11 +7,18 @@ import static com.ibctec.numberconverter.util.ConverterUtil.doHundredsConversion
 import static com.ibctec.numberconverter.util.ConverterUtil.doOnesConversion;
 import static com.ibctec.numberconverter.util.ConverterUtil.doTensConversion;
 import static com.ibctec.numberconverter.util.ConverterUtil.doThousandConversion;
-import static com.ibctec.numberconverter.util.ConverterUtil.getIntValue;
+import static com.ibctec.numberconverter.util.ConverterUtil.getIntValues;
 
+/**
+ * Converts a number of strings to English words of strings
+ */
 @Component
 public class Converter {
-
+    /**
+     * Convert numbers to english
+     * @param number eg 563562
+     * @return english format
+     */
     public String toWords(String number) {
         char[] numbers = number.toCharArray();
         int length = numbers.length;
@@ -21,105 +28,67 @@ public class Converter {
                 builder = doOnesConversion(numbers, builder);
                 break;
             case 2:
-                int ten = getIntValue(0, numbers);
-                int one = getIntValue(1, numbers);
-                builder = doTensConversion(builder, ten, one);
+                int[] intValues = getIntValues(numbers);
+                builder = doTensConversion(builder, intValues[0], intValues[1]);
                 break;
             case 3:
-                int hundred = getIntValue(0, numbers);
-                ten = getIntValue(1, numbers);
-                one = getIntValue(2, numbers);
-                builder = doHundredsConversion(builder, ten, one, hundred);
+                intValues = getIntValues(numbers);
+                builder = doHundredsConversion(builder, intValues[1],
+                        intValues[2], intValues[0]);
                 break;
             case 4:
-                int thousand = getIntValue(0, numbers);
-                hundred = getIntValue(1, numbers);
-                ten = getIntValue(2, numbers);
-                one = getIntValue(3, numbers);
-
-                builder = doThousandConversion(builder, ten, one, hundred, thousand);
+                intValues = getIntValues(numbers);
+                builder = doThousandConversion(builder, intValues[2],
+                        intValues[3], intValues[1], intValues[0]);
                 break;
             case 5:
-                int tensThousand = getIntValue(0, numbers);
-                int onsThousand = getIntValue(1, numbers);
-                builder = doTensConversion(builder, tensThousand, onsThousand);
+                intValues = getIntValues(numbers);
+                builder = doTensConversion(builder, intValues[0], intValues[1]);
                 builder.append("Thousand ");
-                hundred = getIntValue(2, numbers);
-                ten = getIntValue(3, numbers);
-                one = getIntValue(4, numbers);
-
-                builder = doHundredsConversion(builder, ten, one, hundred);
+                builder = doHundredsConversion(builder, intValues[3],
+                        intValues[4], intValues[2]);
                 break;
             case 6:
-                int hundredThousand = getIntValue(0, numbers);
-                tensThousand = getIntValue(1, numbers);
-                onsThousand = getIntValue(2, numbers);
-                hundred = getIntValue(3, numbers);
-                ten = getIntValue(4, numbers);
-                one = getIntValue(5, numbers);
-
-                builder = doHundredsConversion(builder, tensThousand, onsThousand, hundredThousand);
+                intValues = getIntValues(numbers);
+                builder = doHundredsConversion(builder, intValues[1], intValues[2], intValues[0]);
                 builder.append("Thousand ");
-                ConverterUtil.addAnd(builder, hundred, ten, one);
-                builder = doHundredsConversion(builder, ten, one, hundred);
+                ConverterUtil.addAnd(builder, intValues[3], intValues[4], intValues[5]);
+                builder = doHundredsConversion(builder, intValues[4], intValues[5], intValues[3]);
                 break;
             case 7:
-                int million = getIntValue(0, numbers);
-                hundredThousand = getIntValue(1, numbers);
-                tensThousand = getIntValue(2, numbers);
-                onsThousand = getIntValue(3, numbers);
-                hundred = getIntValue(4, numbers);
-                ten = getIntValue(5, numbers);
-                one = getIntValue(6, numbers);
+                intValues = getIntValues(numbers);
                 builder = new MillionConverter()
-                        .convert(million, hundredThousand, tensThousand, onsThousand, builder);
-                if (million > 0 && (hundredThousand > 0 || tensThousand > 0 || onsThousand > 0)) {
+                        .convert(intValues[0], intValues[1], intValues[2], intValues[3], builder);
+                if (intValues[0] > 0 && (intValues[1] > 0
+                        || intValues[2] > 0
+                        || intValues[3] > 0)) {
                     builder.append("Thousand ");
                 }
-                ConverterUtil.addAnd(builder, hundred, ten, one);
-                builder = doHundredsConversion(builder, ten, one, hundred);
+                ConverterUtil.addAnd(builder, intValues[4], intValues[5], intValues[6]);
+                builder = doHundredsConversion(builder, intValues[5], intValues[6], intValues[4]);
                 break;
             case 8:
-                int tensMillion = getIntValue(0, numbers);
-                int onesMillion = getIntValue(1, numbers);
-                hundredThousand = getIntValue(2, numbers);
-                tensThousand = getIntValue(3, numbers);
-                onsThousand = getIntValue(4, numbers);
-                hundred = getIntValue(5, numbers);
-                ten = getIntValue(6, numbers);
-                one = getIntValue(7, numbers);
-
-                builder = doTensConversion(builder, tensMillion, onesMillion);
+                intValues = getIntValues(numbers);
+                builder = doTensConversion(builder, intValues[0], intValues[1]);
                 builder.append("Million ");
-
-                builder = doHundredsConversion(builder, tensThousand, onsThousand, hundredThousand);
-                if (hundredThousand > 0 || tensThousand > 0 || onsThousand > 0) {
+                builder = doHundredsConversion(builder, intValues[3], intValues[4], intValues[2]);
+                if (intValues[2] > 0 || intValues[3] > 0 || intValues[4] > 0) {
                     builder.append("Thousand ");
                 }
-
-                ConverterUtil.addAnd(builder, hundred, ten, one);
-                builder = doHundredsConversion(builder, ten, one, hundred);
+                ConverterUtil.addAnd(builder, intValues[5], intValues[6], intValues[7]);
+                builder = doHundredsConversion(builder, intValues[6], intValues[7], intValues[5]);
                 break;
             case 9:
-                int hundredMillion = getIntValue(0, numbers);
-                tensMillion = getIntValue(1, numbers);
-                onesMillion = getIntValue(2, numbers);
-                hundredThousand = getIntValue(3, numbers);
-                tensThousand = getIntValue(4, numbers);
-                onsThousand = getIntValue(5, numbers);
-                hundred = getIntValue(6, numbers);
-                ten = getIntValue(7, numbers);
-                one = getIntValue(8, numbers);
-
-                builder = doHundredsConversion(builder, tensMillion, onesMillion, hundredMillion);
+                intValues = getIntValues(numbers);
+                builder = doHundredsConversion(builder, intValues[1], intValues[2], intValues[0]);
                 builder.append("Million ");
-                builder = doHundredsConversion(builder, tensThousand, onsThousand, hundredThousand);
-                if (hundredThousand > 0 || tensThousand > 0 || onsThousand > 0) {
+                builder = doHundredsConversion(builder, intValues[4], intValues[5], intValues[3]);
+                if (intValues[3] > 0 || intValues[4] > 0 || intValues[5] > 0) {
                     builder.append("Thousand ");
                 }
 
-                ConverterUtil.addAnd(builder, hundred, ten, one);
-                builder = doHundredsConversion(builder, ten, one, hundred);
+                ConverterUtil.addAnd(builder, intValues[6], intValues[7], intValues[8]);
+                builder = doHundredsConversion(builder, intValues[7], intValues[8], intValues[6]);
                 break;
         }
         return builder.toString().trim();

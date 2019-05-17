@@ -50,8 +50,15 @@ public class ConverterUtil {
         return builder;
     }
 
-    public static int getIntValue(int i, char[] numbers) {
+    private static int getIntValue(int i, char[] numbers) {
         return Integer.parseInt(String.valueOf((numbers[i])));
     }
 
+    public static int[] getIntValues(char[] numbers) {
+        int[] intVals = new int[numbers.length];
+        for(int i=0; i < numbers.length; i++) {
+            intVals[i] = Integer.parseInt(String.valueOf(numbers[i]));
+        }
+        return intVals;
+    }
 }

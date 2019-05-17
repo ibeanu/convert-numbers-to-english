@@ -1,0 +1,21 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Convert Number To English Word</title>
+    <meta charset="UTF-8">
+</head>
+<body>
+
+<h1>Enter number to convert</h1>
+
+<form action="#" th:action="@{/convert}" th:object="${number}" method="post">
+    <p>
+        Number To Convert: <input type="text" th:field="*{number}">
+    </p>
+    <p>
+        <input type="submit" value="Submit"/> <input type="reset" value="Reset">
+    </p>
+</form>
+
+</body>
+</html>

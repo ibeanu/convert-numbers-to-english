@@ -86,7 +86,6 @@ public class Converter {
                 if (intValues[3] > 0 || intValues[4] > 0 || intValues[5] > 0) {
                     builder.append("Thousand ");
                 }
-
                 ConverterUtil.addAnd(builder, intValues[6], intValues[7], intValues[8]);
                 builder = doHundredsConversion(builder, intValues[7], intValues[8], intValues[6]);
                 break;

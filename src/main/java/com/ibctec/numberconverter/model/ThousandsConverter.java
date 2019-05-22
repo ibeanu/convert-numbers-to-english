@@ -11,28 +11,28 @@ public class ThousandsConverter {
                 break;
             case 2:
                 builder = doConversion(thousand, hundred, ten, one, builder, "Two Thousand ");
-
+                break;
             case 3:
                 builder = doConversion(thousand, hundred, ten, one, builder, "Three Thousand ");
-
+                break;
             case 4:
                 builder = doConversion(thousand, hundred, ten, one, builder, "Four Thousand ");
-
+                break;
             case 5:
                 builder = doConversion(thousand, hundred, ten, one, builder, "Five Thousand ");
-
+                break;
             case 6:
                 builder = doConversion(thousand, hundred, ten, one, builder, "Six Thousand ");
-
+                break;
             case 7:
                 builder = doConversion(thousand, hundred, ten, one, builder, "Seven Thousand ");
-
+                break;
             case 8:
                 builder = doConversion(thousand, hundred, ten, one, builder, "Eight Thousand ");
-
+                break;
             case 9:
                 builder = doConversion(thousand, hundred, ten, one, builder, "Nine Thousand ");
-
+                break;
         }
         return builder;
     }

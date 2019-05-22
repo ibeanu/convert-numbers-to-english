@@ -33,6 +33,9 @@ public class ThousandsConverter {
             case 9:
                 builder = doConversion(thousand, hundred, ten, one, builder, "Nine Thousand ");
                 break;
+            default:
+                builder = doConversion(thousand, hundred, ten, one, builder, "Ten Thousand ");
+                break;
         }
         return builder;
     }
